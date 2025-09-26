@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+const API_URL = import.meta.env.VITE_API_URL || 'https://ecommerce-backend-production-5560.up.railway.app'
 
 async function request(path, { method = 'GET', token, body, isForm } = {}) {
   const headers = {}
