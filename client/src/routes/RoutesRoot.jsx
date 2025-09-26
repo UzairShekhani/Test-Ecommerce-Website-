@@ -10,6 +10,9 @@ const Login = lazy(() => import('../screens/Login.jsx'))
 const Register = lazy(() => import('../screens/Register.jsx'))
 const Admin = lazy(() => import('../screens/admin/AdminDashboard.jsx'))
 const AdminLogin = lazy(() => import('../screens/admin/AdminLogin.jsx'))
+const Categories = lazy(() => import('../screens/Categories.jsx'))
+const Favorites = lazy(() => import('../screens/Favorites.jsx'))
+const Orders = lazy(() => import('../screens/Orders.jsx'))
 
 export const RoutesRoot = [
   {
@@ -24,6 +27,9 @@ export const RoutesRoot = [
       { path: '/register', element: <Register /> },
       { path: '/admin', element: <AdminGuard><Admin /></AdminGuard> },
       { path: '/admin/login', element: <AdminLogin /> },
+      { path: '/categories', element: <Categories /> },
+      { path: '/favorites', element: <Favorites /> },
+      { path: '/orders', element: <Orders /> },
     ],
   },
 ]

@@ -41,6 +41,7 @@ export const useStore = create((set, get) => ({
   products: persisted.products || demoProducts,
   cart: persisted.cart || [],
   user: persisted.user || null,
+  favorites: persisted.favorites || [], // New: User's favorite products
 
   addToCart: (product, variantKey = '') => {
     const key = `${product.id}:${variantKey}`
@@ -105,9 +106,19 @@ export const useStore = create((set, get) => ({
     get().persist()
   },
 
+  // Favorites Actions
+  addFavorite: (product) => {
+    set((state) => ({ favorites: [...state.favorites, product] }))
+    get().persist()
+  },
+  removeFavorite: (productId) => {
+    set((state) => ({ favorites: state.favorites.filter((p) => p._id !== productId) }))
+    get().persist()
+  },
+
   persist: () => {
-    const { products, cart, user } = get()
-    localStorage.setItem('app_state', JSON.stringify({ products, cart, user }))
+    const { products, cart, user, favorites } = get()
+    localStorage.setItem('app_state', JSON.stringify({ products, cart, user, favorites }))
   },
 }))
 

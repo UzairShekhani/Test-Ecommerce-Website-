@@ -36,6 +36,10 @@ export default function Products() {
   const [tag, setTag] = useState('')
   const [page, setPage] = useState(1)
 
+  // ✅ New: price range
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
+
   // Fetch products from backend
   useEffect(() => {
     api.products({ sort, category, tag })
@@ -45,11 +49,18 @@ export default function Products() {
 
   const products = productsState
 
-  // Client-side search filter
+  // Client-side filters (search + price range)
   const filtered = useMemo(() => {
-    let list = products.filter((p) => p.name?.toLowerCase().includes(query.toLowerCase()))
+    let list = products.filter((p) =>
+      p.name?.toLowerCase().includes(query.toLowerCase())
+    )
+
+    // ✅ Apply price range filter
+    if (minPrice) list = list.filter((p) => p.price >= Number(minPrice))
+    if (maxPrice) list = list.filter((p) => p.price <= Number(maxPrice))
+
     return list
-  }, [products, query])
+  }, [products, query, minPrice, maxPrice])
 
   // Pagination
   const perPage = 12
@@ -63,7 +74,7 @@ export default function Products() {
       <div className="flex flex-col gap-8 md:flex-row">
         {/* Sidebar Filters */}
         <aside className="md:w-64 space-y-6 flex-shrink-0">
-          <div className="bg-white p-6 rounded-xl shadow-lg  sticky top-20">
+          <div className="bg-white p-6 rounded-xl shadow-lg sticky top-20">
             <h2 className="font-bold text-xl mb-4 border-b pb-2">Filter & Sort</h2>
 
             {/* Search */}
@@ -121,6 +132,27 @@ export default function Products() {
                 <option value="trending">Trending</option>
                 <option value="discount">Discount</option>
               </select>
+            </div>
+
+            {/* ✅ Price Range */}
+            <div className="mt-5">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  placeholder="Min"
+                  value={minPrice}
+                  onChange={(e) => { setMinPrice(e.target.value); setPage(1) }}
+                  className="input w-1/2"
+                />
+                <input
+                  type="number"
+                  placeholder="Max"
+                  value={maxPrice}
+                  onChange={(e) => { setMaxPrice(e.target.value); setPage(1) }}
+                  className="input w-1/2"
+                />
+              </div>
             </div>
           </div>
         </aside>

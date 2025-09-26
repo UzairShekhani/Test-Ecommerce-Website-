@@ -32,6 +32,11 @@ export const api = {
   updateProduct: (id, formOrJson, token, isForm = false) =>
     request(`/api/products/${id}`, { method: 'PATCH', isForm, body: formOrJson, token }),
   deleteProduct: (id, token) => request(`/api/products/${id}`, { method: 'DELETE', token }),
+
+  // Favorites APIs
+  getFavorites: (token) => request('/api/favorites', { token }),
+  addFavorite: (productId, token) => request('/api/favorites', { method: 'POST', body: { productId }, token }),
+  removeFavorite: (productId, token) => request(`/api/favorites/${productId}`, { method: 'DELETE', token }),
 }
 
 

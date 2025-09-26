@@ -25,7 +25,15 @@ export function Layout() {
             <span className="text-lg">UrbannMuse</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm">
+            <NavLink to="/" className={({isActive})=>isActive?"font-medium":"text-gray-600 hover:text-gray-900"}>Home</NavLink>
             <NavLink to="/products" className={({isActive})=>isActive?"font-medium":"text-gray-600 hover:text-gray-900"}>Products</NavLink>
+            <NavLink to="/categories" className={({isActive})=>isActive?"font-medium":"text-gray-600 hover:text-gray-900"}>Categories</NavLink>
+            {user && (
+              <NavLink to="/favorites" className={({isActive})=>isActive?"font-medium":"text-gray-600 hover:text-gray-900"}>Favorites</NavLink>
+            )}
+            {user && (
+              <NavLink to="/orders" className={({isActive})=>isActive?"font-medium":"text-gray-600 hover:text-gray-900"}>Orders</NavLink>
+            )}
           </nav>
 
           <div className="flex items-center gap-4">
