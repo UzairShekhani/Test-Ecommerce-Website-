@@ -4,11 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { api } from "../lib/api.js";
 import { toast } from "sonner";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 export default function Register() {
   const navigate = useNavigate();
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
   const handleRegister = async () => {
     const root = formRef.current;
@@ -107,13 +110,22 @@ export default function Register() {
                   className='mb-1 block text-sm font-medium text-gray-700'>
                   Password
                 </label>
-                <input
-                  id='r-pass'
-                  className='input'
-                  placeholder='••••••••'
-                  type='password'
-                  required
-                />
+                <div className="relative">
+                  <input
+                    id='r-pass'
+                    className='input pr-10'
+                    placeholder='••••••••'
+                    type={showPassword ? "text" : "password"} // Toggle type based on showPassword state
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                  >
+                    {showPassword ? <FaEyeSlash className="h-5 w-5 text-gray-400" /> : <FaEye className="h-5 w-5 text-gray-400" />}
+                  </button>
+                </div>
               </div>
               <div>
                 <label
@@ -121,13 +133,22 @@ export default function Register() {
                   className='mb-1 block text-sm font-medium text-gray-700'>
                   Confirm Password
                 </label>
-                <input
-                  id='r-conf'
-                  className='input'
-                  placeholder='••••••••'
-                  type='password'
-                  required
-                />
+                <div className="relative">
+                  <input
+                    id='r-conf'
+                    className='input pr-10'
+                    placeholder='••••••••'
+                    type={showConfirmPassword ? "text" : "password"} // Toggle type based on showConfirmPassword state
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                  >
+                    {showConfirmPassword ? <FaEyeSlash className="h-5 w-5 text-gray-400" /> : <FaEye className="h-5 w-5 text-gray-400" />}
+                  </button>
+                </div>
               </div>
             </div>
             <div>

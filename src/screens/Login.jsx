@@ -5,11 +5,13 @@ import { useState } from "react";
 import { api } from "../lib/api.js";
 import { useStore } from "../store/store.js";
 import { toast } from "sonner";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const navigate = useNavigate();
   const setUser = (u) => useStore.setState({ user: u });
 
@@ -66,15 +68,24 @@ export default function Login() {
                 className='mb-1 block text-sm font-medium text-gray-700'>
                 Password
               </label>
-              <input
-                id='login-password'
-                className='input'
-                placeholder='••••••••'
-                type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <input
+                  id='login-password'
+                  className='input pr-10'
+                  placeholder='••••••••'
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                >
+                  {showPassword ? <FaEyeSlash className="h-5 w-5 text-gray-400" /> : <FaEye className="h-5 w-5 text-gray-400" />}
+                </button>
+              </div>
               <div className='text-right mt-2'>
                 <a
                   href='#'

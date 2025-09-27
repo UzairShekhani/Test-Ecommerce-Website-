@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useStore } from '../../store/store.js'
 import { api } from '../../lib/api.js'
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('admin@store.com') // Hardcoded admin email
   const [password, setPassword] = useState('Admin@123') // Hardcoded admin password
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   
   const setUser = (u) => useStore.setState({ user: u })
   const navigate = useNavigate()
@@ -75,14 +77,23 @@ export default function AdminLogin() {
                         className="input" // Using the global input class
                         disabled={isLoading}
                     />
-                    <input 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
-                        placeholder="Password" 
-                        type="password" 
-                        className="input" // Using the global input class
-                        disabled={isLoading}
-                    />
+                    <div className="relative">
+                      <input 
+                          value={password} 
+                          onChange={(e) => setPassword(e.target.value)} 
+                          placeholder="Password" 
+                          type={showPassword ? "text" : "password"} // Toggle type based on showPassword state
+                          className="input pr-10" // Using the global input class
+                          disabled={isLoading}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                      >
+                        {showPassword ? <FaEyeSlash className="h-5 w-5 text-gray-400" /> : <FaEye className="h-5 w-5 text-gray-400" />}
+                      </button>
+                    </div>
                     <button type="submit" className="btn mt-2" disabled={isLoading}>
                         {isLoading ? (
                             <div className="flex items-center justify-center space-x-2">
