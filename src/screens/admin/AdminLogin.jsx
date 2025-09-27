@@ -39,9 +39,9 @@ export default function AdminLogin() {
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
-        <div className="grid md:grid-cols-2 max-w-5xl w-full overflow-hidden rounded-2xl border bg-white shadow-indigo-200/50">
+        <div className="grid md:grid-cols-2 max-w-5xl w-full overflow-hidden rounded-2xl  bg-white shadow-indigo-200/50">
             {/* Visual Side */}
-            <div className="hidden md:flex flex-col justify-center items-center p-12 bg-indigo-700">
+            <div className="hidden md:flex flex-col justify-center items-center p-12 bg-gray-900">
                 <div className="text-white text-center">
                     <h3 className="text-4xl font-extrabold mb-3">Admin Portal</h3>
                     <p className="text-indigo-300 text-lg font-medium">Manage your e-commerce store with ease.</p>
